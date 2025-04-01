@@ -102,47 +102,51 @@ const Register = () => {
                             required 
                         />
                     </section>
-
-                    {/* Create Password Input */}
                     <section className="relative">
-                        <label htmlFor="createPassword" className="text-lg font-semibold text-gray-300">Create Password</label>
-                        <input 
-                            type={showPassword ? "text" : "password"} 
-                            id="createPassword" 
-                            name="createPassword" 
-                            className="h-12 w-full border border-gray-500 bg-gray-800 px-3 text-white rounded-lg pr-10 focus:outline-none focus:border-blue-500 transition" 
-                            value={createPassword} 
-                            onChange={handleChange} 
-                            required 
-                        />
-                        <div 
-                            onClick={() => setShowPassword(!showPassword)} 
-                            className="absolute right-3 top-10 transform -translate-y-1/2 cursor-pointer text-gray-400 hover:text-white"
-                        >
-                            {showPassword ? <FaEye /> : <FaEyeSlash />}
-                        </div>
-                    </section>
+    <label htmlFor="createPassword" className="text-lg font-semibold text-gray-300">
+        Create Password
+    </label>
+    <div className="relative">
+        <input 
+            type={showPassword ? "text" : "password"} 
+            id="createPassword" 
+            name="createPassword" 
+            className="h-12 w-full border border-gray-500 bg-gray-800 px-3 pr-12 text-white rounded-lg focus:outline-none focus:border-blue-500 transition" 
+            value={createPassword} 
+            onChange={handleChange} 
+            required 
+        />
+        <div 
+            onClick={() => setShowPassword(!showPassword)} 
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-400 hover:text-white"
+        >
+            {showPassword ? <FaEye /> : <FaEyeSlash />}
+        </div>
+    </div>
+</section>
 
-                    {/* Confirm Password Input */}
-                    <section className="relative">
-                        <label htmlFor="confirmPassword" className="text-lg font-semibold text-gray-300">Confirm Password</label>
-                        <input 
-                            type={showConfirmPassword ? "text" : "password"} 
-                            id="confirmPassword" 
-                            name="confirmPassword" 
-                            className="h-12 w-full border border-gray-500 bg-gray-800 px-3 text-white rounded-lg pr-10 focus:outline-none focus:border-blue-500 transition" 
-                            value={confirmPassword} 
-                            onChange={handleChange} 
-                            required 
-                        />
-                        <div 
-                            onClick={() => setShowConfirmPassword(!showConfirmPassword)} 
-                            className="absolute right-3 top-10 transform -translate-y-1/2 cursor-pointer text-gray-400 hover:text-white"
-                        >
-                            {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
-                        </div>
-                    </section>
-
+<section className="relative">
+    <label htmlFor="confirmPassword" className="text-lg font-semibold text-gray-300">
+        Confirm Password
+    </label>
+    <div className="relative">
+        <input 
+            type={showConfirmPassword ? "text" : "password"} 
+            id="confirmPassword" 
+            name="confirmPassword" 
+            className="h-12 w-full border border-gray-500 bg-gray-800 px-3 pr-12 text-white rounded-lg focus:outline-none focus:border-blue-500 transition" 
+            value={confirmPassword} 
+            onChange={handleChange} 
+            required 
+        />
+        <div 
+            onClick={() => setShowConfirmPassword(!showConfirmPassword)} 
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-400 hover:text-white"
+        >
+            {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
+        </div>
+    </div>
+</section>
                     {/* Submit Button */}
                     <button 
                         type="submit" 

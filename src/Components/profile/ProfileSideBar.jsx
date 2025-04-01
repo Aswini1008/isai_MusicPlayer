@@ -7,7 +7,7 @@ import { FaUser } from "react-icons/fa";
 const ProfileSideBar = () => {
   return (
     <aside className="fixed left-0 top-0 w-[260px] h-screen 
-                     bg-gradient-to-b from-gray-800 via-gray-700 to-gray-900
+                     bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900
                      text-gray-200 text-lg p-6 shadow-2xl">
       <nav>
         <ul className="flex flex-col gap-5">
