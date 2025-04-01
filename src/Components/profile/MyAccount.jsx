@@ -20,29 +20,11 @@ const MyAccount = () => {
 
         {/* Profile Details */}
         <div className="text-center mt-16 px-8 pb-8">
-          <h2 className="text-2xl font-bold text-white">{AuthUser?.username || "Guest User"}</h2>
-          <p className="text-gray-300">{AuthUser?.email || "No email provided"}</p>
+          
+         
 
-          {/* Status */}
-          <div className="mt-4">
-            <span
-              className={`px-5 py-1 text-sm font-semibold rounded-full shadow-md ${
-                AuthUser?.emailVerified ? "bg-green-500 text-white" : "bg-red-500 text-white"
-              }`}
-            >
-              {AuthUser?.emailVerified ? "Verified" : "Not Verified"}
-            </span>
-          </div>
-
-          {/* Buttons */}
-          <div className="mt-6 flex flex-col gap-4">
-            <button className="w-full py-2 text-lg font-semibold bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 rounded-lg shadow-lg transition-all duration-300 hover:shadow-blue-500 hover:scale-105">
-              Update Profile
-            </button>
-            <button className="w-full py-2 text-lg font-semibold bg-gradient-to-r from-red-500 to-red-600 rounded-lg shadow-lg transition-all duration-300 hover:shadow-red-500 hover:scale-105">
-              Logout
-            </button>
-          </div>
+         
+        
         </div>
       </article>
     </section>
