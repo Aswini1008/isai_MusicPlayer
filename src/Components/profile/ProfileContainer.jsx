@@ -1,16 +1,15 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
-import ProfileSideBar from "./ProfileSideBar";
+import React from 'react'
+import ProfileSideBar from './ProfileSideBar'
+import ProfileContent from './ProfileContent'
 
 const ProfileContainer = () => {
   return (
-    <section className="flex">
-      <ProfileSideBar />
-      <main className="ml-[260px] w-full min-h-screen bg-gradient-to-br from-black via-gray-800 to-blue-800 p-8">
-        <Outlet />
-      </main>
+    
+    <section className='flex bg-gradient-to-l bg-blue-200 h-[180vh] w-full '>
+    <ProfileSideBar/>
+    <ProfileContent/>
     </section>
-  );
-};
-
-export default ProfileContainer;
+  )
+}
+``
+export default ProfileContainer

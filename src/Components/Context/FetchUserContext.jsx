@@ -16,7 +16,7 @@ const FetchUserContext = ({children}) => {
     if(!uid){
       return;
     }
-    let userCollection=doc(__DB,"user_Details",uid);
+    let userCollection=doc(__DB,"user_Details",uid); 
     console.log(userCollection)
     onSnapshot(userCollection,(userData)=>{
       if(userData.exists())
