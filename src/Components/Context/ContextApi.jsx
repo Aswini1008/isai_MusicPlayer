@@ -15,9 +15,9 @@ let logout=async()=>{
     window.localStorage.assign("/Login")  
  },3000)
 }
-useEffect(()=>{
+useEffect(()=>{ 
   onAuthStateChanged(__AUTH,(userData)=>{
-    console.log(userData);
+    console.log(userData)
     if(userData?.emailVerified){
       setAuthUser(userData)
       window.localStorage.setItem("TOKEN",userData?.accessToken)
