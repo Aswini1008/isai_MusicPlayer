@@ -1,7 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import toast from 'react-hot-toast'
+import ContextApi from '../Context/ContextApi'
+import { useNavigate } from 'react-router-dom'
 
 const UpdateProfilephoto = () => {
+  
+  let {AuthUser} =useContext(ContextApi)
   let [photofile,setPhotofile]=useState()
   let [preview,setPreview]=useState()
   let handleChange=(e)=>{
@@ -34,7 +38,7 @@ const UpdateProfilephoto = () => {
       body:data
     }
    )
-
+ 
   }
     catch (error){
 

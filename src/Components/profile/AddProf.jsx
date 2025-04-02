@@ -52,7 +52,7 @@ const AddProfile = () => {
   };
 
   return (
-    <main className=' pt-[500px] bg-gradient-to-br from-black via-gray-900 to-blue-800 w-full h-screen flex items-center justify-center text-white'>
+    <main className='pt-[48px] bg-gradient-to-br from-black via-gray-900 to-blue-800 w-full h-full flex items-center justify-center text-white p-4'>
       <motion.article 
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -68,7 +68,13 @@ const AddProfile = () => {
             { label: "City", name: "city" },
             { label: "State", name: "state" },
             { label: "Language", name: "language" }].map(({ label, name, type = "text" }) => (
-            <div key={name} className='flex flex-col'>
+            <motion.div 
+              key={name} 
+              className='flex flex-col'
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
               <label className='font-semibold text-gray-300'>{label}</label>
               <input 
                 type={type} 
@@ -78,10 +84,10 @@ const AddProfile = () => {
                 className='h-[45px] border border-gray-600 bg-gray-700 text-white px-4 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none'
                 placeholder={label}
               />
-            </div>
+            </motion.div>
           ))}
           
-          <div className='flex flex-col'>
+          <motion.div className='flex flex-col' initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
             <label className='font-semibold text-gray-300'>Gender</label>
             <div className='flex gap-5'>
               {["male", "female", "others"].map((g) => (
@@ -98,9 +104,9 @@ const AddProfile = () => {
                 </label>
               ))}
             </div>
-          </div>
+          </motion.div>
           
-          <div className='flex flex-col'>
+          <motion.div className='flex flex-col' initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
             <label className='font-semibold text-gray-300'>Address</label>
             <textarea 
               name='Address' 
@@ -109,14 +115,16 @@ const AddProfile = () => {
               className='border border-gray-600 bg-gray-700 text-white px-4 py-2 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none' 
               placeholder='Enter your address'
             />
-          </div>
+          </motion.div>
           
-          <button 
+          <motion.button 
             type='submit' 
             className='h-[50px] text-lg font-semibold bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-md transition-all duration-300 ease-in-out hover:opacity-90 disabled:opacity-50'
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
             Update Profile
-          </button>
+          </motion.button>
         </form>
       </motion.article>
     </main>
