@@ -5,10 +5,12 @@ import Home from './../pages/Home';
 import Register from './../auth/Register';
 import Forgetpassword from "../ForgetPassword/Forgetpassword";
 import ProfileContainer from "../profile/ProfileContainer";
-import AddProf from "../profile/AddProf";
-import UpdateProfilephoto from "../profile/UpdateProfilephoto";
 import Myacc from "../profile/Myacc";
-
+import AddProf from "../profile/AddProf";
+import UpdateProfilephoto from "../profile/UpdateProfilephoto"
+import Admincontainer from "../admin/Admincontainer";
+import AddAlbum from "../admin/AddAlbum";
+import AddSongs from "../admin/AddSongs";
 
 
 
@@ -40,7 +42,7 @@ let myRoutes=createBrowserRouter([
     children:[
       {
       index:true,
-      element:<Myacc />
+      element:<Myacc/>
     },
   {
   path:"AddProf",
@@ -51,9 +53,24 @@ let myRoutes=createBrowserRouter([
   element:<UpdateProfilephoto/>
 }
 
-]
-  }
 ]},
+{
+  path:"/admin",
+  element:<Admincontainer/>,
+  children:[
+    {
+    //  index:true,
+     path:"/admin/addAlbum",
+     element:<AddAlbum/>
+    },
+    {
+      path:"/admin/addSongs",
+      element:<AddSongs/>
+    },
+  ]
+}
+],
+},
 ]);
 
 export default myRoutes;

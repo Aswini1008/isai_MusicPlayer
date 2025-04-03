@@ -1,49 +1,92 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../Context/ContextApi';
-import { NavLink } from 'react-router-dom';
-import userAvatar from '../assests/coder.png'; // Ensure correct path
+import { NavLink, useLocation } from 'react-router-dom';
+import { fetchProfileContext } from '../Context/FetchUserContext';
 
 const Menu = () => {
-  const { AuthUser, logout } = useContext(AuthContext);
+  let { AuthUser, logout } = useContext(AuthContext);
+  let { role } = useContext(fetchProfileContext);
+  let location = useLocation(); // Get the current page path
 
-  const Anonymus = () => (
-    <ul className="flex gap-5 items-center">
-      <li>
-        <NavLink to="/login" className={({ isActive }) => `text-lg font-semibold px-4 py-2 rounded-md transition ${isActive ? 'text-blue-400 border-b-2 border-blue-400' : 'text-blue-200 hover:text-blue-300'}`}>
-          Login
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="/register" className={({ isActive }) => `text-lg font-semibold px-4 py-2 rounded-md transition ${isActive ? 'text-blue-400 border-b-2 border-blue-400' : 'text-blue-200 hover:text-blue-300'}`}>
-          Register
-        </NavLink>
-      </li>
-    </ul>
-  );
+  let Anonymus = () => {
+    return (
+      <section>
+        <article>
+          <ul className="flex gap-6 items-center">
+            <li>
+              <NavLink
+                to="/Login"
+                className={({ isActive }) =>
+                  `font-medium transition duration-300 ${isActive ? 'text-blue-400 border-b-2 border-blue-400' : 'text-white hover:text-blue-400'}`
+                }
+              >
+                Login
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/Register"
+                className={({ isActive }) =>
+                  `font-medium transition duration-300 ${isActive ? 'text-blue-400 border-b-2 border-blue-400' : 'text-white hover:text-blue-400'}`
+                }
+              >
+                Register
+              </NavLink>
+            </li>
+          </ul>
+        </article>
+      </section>
+    );
+  };
 
-  const Authenticated = () => (
-    <ul className="flex gap-5 items-center">
-      <NavLink to="/profile" className="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-gray-700 transition">
-        <img
-          src={AuthUser?.photoURL || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
-          alt="User Avatar"
-          className="h-[55px] w-[55px] rounded-full border-2 border-blue-400 shadow-md"
-        />
-        <p className="text-blue-300 font-medium hidden md:block">{AuthUser?.displayName || "User"}</p>
-      </NavLink>
-      <li
-        className="bg-red-500 text-white text-lg px-3 py-2 rounded-md cursor-pointer hover:bg-red-600 transition transform hover:scale-105"
-        onClick={logout}
-      >
-        Logout
-      </li>
-    </ul>
-  );
+  let Authenticated = () => {
+    return (
+      <>
+        {role === 'admin' && (
+          <NavLink to="/admin">
+            <li
+              className={`font-bold text-xl transition duration-300 ${
+                location.pathname === '/' ? 'text-blue-400 border-b-2 border-blue-400' : 'text-blue-300 hover:text-blue-400'
+              }`}
+            >
+              Admin
+            </li>
+          </NavLink>
+        )}
+
+        <section>
+          <article>
+            <ul className="flex gap-6 items-center">
+              <NavLink to="/profile">
+                <li className="flex items-center gap-3">
+                  <img src={AuthUser.photoURL} className="h-[40px] w-[40px] rounded-full border-2 border-white" alt="User" />
+                  <p className="text-white text-lg font-medium">{AuthUser.displayName}</p>
+                </li>
+              </NavLink>
+              <li
+                className="bg-red-600 px-4 py-2 rounded-lg text-white font-semibold hover:bg-red-700 transition duration-300 cursor-pointer"
+                onClick={logout}
+              >
+                Logout
+              </li>
+            </ul>
+          </article>
+        </section>
+      </>
+    );
+  };
 
   return (
-    <nav className="bg-gray-900 text-white shadow-md h-[80px] flex items-center px-6 sticky top-0 z-50 border-b border-gray-700">
-      <ul className="flex gap-8 items-center justify-between w-full">
-        <NavLink to="/" className={({ isActive }) => `font-extrabold text-xl px-4 py-2 rounded-md transition ${isActive ? 'text-blue-500 border-b-2 border-blue-400' : 'text-blue-200 hover:text-blue-300'}`}>
+    <nav className="w-full bg-gray-900 px-6 py-4 shadow-lg">
+      <ul className="flex items-center justify-between">
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            `font-extrabold text-2xl transition duration-300 ${
+              isActive ? 'text-blue-400 border-b-2 border-blue-400' : 'text-blue-300 hover:text-blue-400'
+            }`
+          }
+        >
           Home
         </NavLink>
         {AuthUser ? <Authenticated /> : <Anonymus />}
