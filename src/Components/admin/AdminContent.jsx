@@ -1,12 +1,12 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
+import React from 'react';
+import { Outlet } from 'react-router-dom';
 
 const AdminContent = () => {
   return (
-    <section className='basis-[82%]'>
-     <Outlet/>
+    <section className="flex-grow p-6 bg-gray-900 text-white shadow-lg rounded-lg">
+      <Outlet />
     </section>
-  )
-}
+  );
+};
 
-export default AdminContent
+export default AdminContent;

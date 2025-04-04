@@ -23,11 +23,15 @@ const Myacc = () => {
 
           {/* Profile Image */}
           <div className='absolute top-[-50px] left-1/2 transform -translate-x-1/2 flex justify-center w-full'>
-            <img 
-              src="https://cdn.pixabay.com/photo/2024/01/24/11/33/ai-generated-8529420_1280.png" 
-              alt="Profile" 
-              className='h-[100px] w-[100px] rounded-full border-4 border-blue-500 shadow-lg object-cover hover:scale-105 transition duration-300'
-            />
+            {AuthUser?.photoURL ? (
+              <img 
+                src={AuthUser?.photoURL} 
+                alt="Profile" 
+                className='h-[100px] w-[100px] rounded-full border-4 border-blue-500 shadow-lg object-cover hover:scale-105 transition duration-300'
+              />
+            ) : (
+              <FaUserSlash className='text-gray-400 text-4xl' />
+            )}
           </div>
 
           {/* User Details */}
@@ -49,7 +53,7 @@ const Myacc = () => {
           {profile ? (
             <section>
               <article>
-                <form className='text-gray-300 font-medium flex flex-col gap-4 justify-center items-center border-2 border-blue-500 rounded-xl p-6  '>
+                <form className='text-gray-300 font-medium flex flex-col gap-4 justify-center items-center border-2 border-blue-500 rounded-xl p-6'>
 
                   {/* Profile Fields */}
                   {[
@@ -64,7 +68,7 @@ const Myacc = () => {
                       <h1 className='font-bold text-sm text-blue-400'>{field.label}</h1>
                       <input 
                         type={field.type} 
-                        className='border border-blue-500 rounded-md w-[220px] p-2  text-sm bg-gray-900 text-white focus:ring-2 focus:ring-blue-500'
+                        className='border border-blue-500 rounded-md w-[220px] p-2 text-sm bg-gray-900 text-white focus:ring-2 focus:ring-blue-500'
                         name={field.id}
                         id={field.id}
                         defaultValue={field.value || ""}
@@ -77,10 +81,10 @@ const Myacc = () => {
                   <article className='flex justify-between items-center bg-gray-800 p-2 rounded-lg w-[450px] border border-blue-500 hover:bg-gray-700 transition duration-300'>
                     <h1 className='font-bold text-sm text-blue-400'>Address</h1>
                     <textarea 
-                      className='border border-blue-500 rounded-md w-[220px] p-2 text-black text-sm bg-gray-900 text-white focus:ring-2 focus:ring-blue-500'
+                      className='border border-blue-500 rounded-md w-[220px] p-2 text-sm bg-gray-900 text-white focus:ring-2 focus:ring-blue-500'
                       name='address'
                       id='address'
-                      defaultValue={profile?.Address || ""}
+                      defaultValue={profile?.address || ""}
                       readOnly
                     ></textarea>
                   </article>

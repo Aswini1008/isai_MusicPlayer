@@ -1,97 +1,83 @@
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { toast } from "react-hot-toast";
-import { getAuth, updateProfile } from "firebase/auth";
+import { updateProfile } from 'firebase/auth'
+import React, { useContext, useState } from 'react'
+import toast from 'react-hot-toast'
+import { AuthContext } from '../Context/ContextApi'
+import { useNavigate } from 'react-router-dom'
 
-const UpdateProfilePhoto = () => {
-  const [photoFile, setPhotoFile] = useState(null);
-  const [preview, setPreview] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const auth = getAuth();
+const UpdateProfilephoto = () => {
+  let navigate = useNavigate()
+  let { AuthUser } = useContext(AuthContext)
+  let [photofile, setPhotofile] = useState()
+  let [preview, setPreview] = useState()
 
-  const handleChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setPhotoFile(file);
-      setPreview(URL.createObjectURL(file));
-    }
-  };
+  let handleChange = (e) => {
+    console.log(e)
+    let file = e.target.files[0]
+    console.log(file)
+    setPhotofile(file)
+    setPreview(URL.createObjectURL(file))
+  }
 
-  const handleUpload = async (e) => {
-    e.preventDefault();
-    if (!photoFile) {
-      toast.error("Please select a photo to upload.");
-      return;
-    }
-    setLoading(true);
-    
+  let handleSubmit = async (e) => {
+    e.preventDefault()
     try {
-      const data = new FormData();
-      data.append("file", photoFile);
-      data.append("upload_preset", "your_upload_preset");
-      data.append("cloud_name", "your_cloud_name");
+      if (!photofile) {
+        toast.error("Please select a file")
+        return;
+      }
+      const data = new FormData()
+      data.append("file", photofile)
+      data.append("upload_preset", "isai_2025")
+      data.append("cloud_name", "dlimysous")
 
-      const response = await fetch(`https://api.cloudinary.com/v1_1/your_cloud_name/image/upload`, {
-        method: "POST",
-        body: data,
-      });
-      
-      const result = await response.json();
-      if (result.error) throw new Error(result.error.message);
+      const response = await fetch(
+        "https://api.cloudinary.com/v1_1/dlimysous/image/upload",
+        {
+          method: "POST",
+          body: data
+        }
+      )
 
-      await updateProfile(auth.currentUser, { photoURL: result.secure_url });
-      toast.success("Profile photo updated successfully!");
+      const result = await response.json()
+      console.log(result)
+      const imageURL = result.url
+      await updateProfile(AuthUser, {
+        photoURL: imageURL
+      })
+      toast.success("Profile photo has been successfully updated")
+      navigate("/profile")
     } catch (error) {
-      toast.error(error.message || "Upload failed. Try again.");
-    } finally {
-      setLoading(false);
+      toast.error(error.message)
+      console.log(error)
     }
-  };
-
-  const handleCancel = () => {
-    setPhotoFile(null);
-    setPreview(null);
-  };
+  }
 
   return (
-    <div className="bg-gradient-to-br from-black via-gray-900 to-blue-800 w-full h-screen flex items-center justify-center text-white">
-      <motion.article 
-        initial={{ opacity: 0, y: -50 }} 
-        animate={{ opacity: 1, y: 0 }} 
-        transition={{ duration: 0.5 }}
-        className="w-[450px] bg-gray-900 bg-opacity-70 backdrop-blur-lg shadow-2xl rounded-3xl p-8 border border-blue-500"
-      >
-        <h2 className="text-3xl font-extrabold text-center text-white pb-4 border-b border-blue-700">
-          Update Profile Photo
-        </h2>
-        <form onSubmit={handleUpload} className="mt-5 flex flex-col gap-5">
-          <div className="flex flex-col items-center">
-            {preview && <img src={preview} alt="Preview" className="w-24 h-24 rounded-full border-2 border-gray-400 shadow-lg" />}
-            <label className="cursor-pointer bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 mt-4">
-              Choose File
-              <input type="file" accept="image/*" className="hidden" onChange={handleChange} />
-            </label>
-          </div>
-          <div className="flex justify-between gap-4">
-            <button
-              type="submit"
-              className="h-[50px] w-full text-lg font-semibold bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-md transition-all duration-300 ease-in-out disabled:opacity-50"
-              disabled={loading}
-            >
-              {loading ? "Uploading..." : "Upload"}
-            </button>
-            <button
-              type="button"
-              className="h-[50px] w-full text-lg font-semibold bg-red-600 text-white rounded-md transition-all duration-300 ease-in-out hover:bg-red-700"
-              onClick={handleCancel}
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
-      </motion.article>
-    </div>
-  );
-};
+    <main className='flex flex-col justify-center items-center h-screen bg-gray-900'>
+      <h1 className='text-3xl font-semibold text-blue-500 mb-8'>Update Profile Photo</h1>
+      <section className='h-[50vh] w-[40vw] bg-gray-800 rounded-3xl flex justify-center items-center shadow-lg'>
+        <article className='flex flex-col justify-center items-center w-full'>
+          {preview && (
+            <div className='h-[100px] w-[100px] flex justify-center items-center mb-4'>
+              <img src={preview} alt="Profile Preview" className='h-[100px] w-[100px] rounded-full border-4 border-blue-400 object-cover shadow-md' />
+            </div>
+          )}
+          <form className='flex flex-col gap-6 w-[80%] p-8' onSubmit={handleSubmit}>
+            <input 
+              type="file" 
+              className='rounded-xl border border-gray-400 p-2 mb-4 file:bg-gray-200 file:rounded-xl file:p-3 file:text-gray-700 file:cursor-pointer hover:file:bg-gray-300 transition duration-300'
+              onChange={handleChange}
+            />
+            <div className='flex justify-between gap-6'>
+              <button type="submit" className='px-6 py-2 bg-green-500 text-white font-semibold rounded-xl hover:bg-green-600 transition duration-300'>Upload</button>
+              <button type="button" className='px-6 py-2 bg-red-500 text-white font-semibold rounded-xl hover:bg-red-600 transition duration-300' onClick={() => navigate('/profile')}>Cancel</button>
+            </div>
+          </form>
+        </article>
+      </section>
+    </main>
+  )
+}
 
-export default UpdateProfilePhoto;
+export default UpdateProfilephoto
+git

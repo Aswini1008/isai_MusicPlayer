@@ -1,17 +1,14 @@
-import React from 'react'
-import AdminSidebar from './AdminSidebar'
-import AddAlbum from './AddAlbum'
-import AddSongs from './AddSongs'
-import AdminContent from './AdminContent'
+import React from 'react';
+import AdminSidebar from './AdminSidebar';
+import AdminContent from './AdminContent';
 
-const Admincontainer = () => {
+const AdminContainer = () => {
   return (
-    <section className='flex bg-blue-100 w-full h-[calc(100vh-75px)] '>
-      <AdminSidebar/>
-      <AdminContent/>
+    <section className="flex w-full h-[calc(130vh-75px)] bg-gradient-to-br from-black via-gray-900 to-blue-800 text-white">
+      <AdminSidebar />
+      <AdminContent />
     </section>
+  );
+};
 
-  )
-}
-
-export default Admincontainer
+export default AdminContainer;
